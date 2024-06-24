@@ -1,0 +1,5 @@
+ db.game_status.insertOne(
+  {
+    started: 'False',
+    update_attack_stats: 'False',
+  });

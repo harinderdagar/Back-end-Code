@@ -1,0 +1,121 @@
+db.controls_data.insertOne({
+    info: {
+      controls: {
+        c7: {
+          control: 'Regular security audits and risk assessments',
+          cost: '$1000',
+          effectiveness: { t4: '50%', t5: '40%' }
+        },
+        c1: {
+          control: 'Secure Web Gateway',
+          cost: '$500',
+          effectiveness: { t1: '50%', t2: '60%', t3: '50%' }
+        },
+        c2: {
+          control: 'Endpoint Security',
+          cost: '$1000',
+          effectiveness: { t1: '70%', t2: '70%' }
+        },
+        c3: {
+          control: 'Patch management and system',
+          cost: '$500',
+          effectiveness: { t1: '50%', t5: '50%' }
+        },
+        c4: {
+          control: 'Email Security  and safe internet Browsing and other security trainings',
+          cost: '$500',
+          effectiveness: { t1: '50%', t3: '70%' }
+        },
+        c5: {
+          control: 'Encryption solutions for all the communication',
+          cost: '$1000',
+          effectiveness: { t2: '80%' }
+        },
+        c6: {
+          control: 'Network Intrusion Prevention',
+          cost: '$500',
+          effectiveness: { t3: '60%' }
+        },
+        c8: {
+          control: 'Vulnerability Scanning',
+          cost: '$500',
+          effectiveness: { t5: '50%' }
+        },
+        c9: {
+          control: 'Strong Password Policies',
+          cost: '$500',
+          effectiveness: { t6: '70%' }
+        },
+        c10: {
+          control: 'Conduct Privileged Account Audit',
+          cost: '$500',
+          effectiveness: { t6: '60%' }
+        },
+        c11: {
+          control: 'MFA',
+          cost: '$500',
+          effectiveness: { t6: '80%' }
+        },
+        c12: {
+          control: 'Authentication and Authorization Failure Monitor System',
+          cost: '$500',
+          effectiveness: { t7: '50%', t12: '60%' }
+        },
+        c13: {
+          control: 'Access Control System',
+          cost: '$500',
+          effectiveness: { t7: '50%', t8: '60%', t12: '30%' }
+        },
+        c14: {
+          control: 'Secure Coding Practices Training',
+          cost: '$500',
+          effectiveness: { t8: '80%', t9: '80%' }
+        },
+        c15: {
+          control: 'Conduct Code Review and Pen Testing',
+          cost: '$500',
+          effectiveness: { t8: '80%', t9: '80%' }
+        },
+        c16: {
+          control: 'Monitor systems Performance solution',
+          cost: '$1000',
+          effectiveness: { t10: '70%' }
+        },
+        c17: {
+          control: 'Monitor network Performance solution',
+          cost: '$1000',
+          effectiveness: { t10: '70%' }
+        },
+        c18: {
+          control: 'Implement anti Dos solution',
+          cost: '$1000',
+          effectiveness: { t11: '70%' }
+        },
+        c19: {
+          control: 'Implement Load Balancing',
+          cost: '$500',
+          effectiveness: { t11: '50%' }
+        },
+        c20: {
+          control: 'Implement Least Privilege Policies',
+          cost: '$500',
+          effectiveness: { t12: '50%' }
+        },
+        c21: {
+          control: 'Monitoring solution for systems against unauthorized access',
+          cost: '$500',
+          effectiveness: { t12: '50%' }
+        },
+        c22: {
+          control: 'Encryption tools for Data encryption',
+          cost: '$500',
+          effectiveness: { t12: '70%' }
+        },
+		c23: {
+          control: 'Intrusion Detection System',
+          cost: '$500',
+          effectiveness: { t14: '60%' }
+        }
+      }
+    }
+  });

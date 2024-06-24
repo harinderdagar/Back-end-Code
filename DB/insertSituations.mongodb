@@ -1,0 +1,34 @@
+db.situations.insertOne(
+{ situations: {
+    "situation1": {
+        "description": "The security department comprises three employees. One employee is going on maternity leave, another has had an accident, and the last one is available to work. In this situation, the security manager can make one of the following decisions:",
+        "options": {
+            "1": {                
+					"action": "Ask the remaining employee to take on the work of the other two employees. This approach may lead to employee burnout and decrease the efficiency of the controls that require monitoring.",
+					"control": ["c1", "c2"]  
+            },
+            "2": {
+				"action": "Hire a temporary employee for nine months and distribute the workload among them until the employee on maternity leave returns. This will cost $500.",
+                "cost": 500
+            }
+        }
+    },
+    "situation2": {
+        "description": "There is a severe vulnerability in an endpoint security control. As a security manager, you need to make a decision:",
+        "options": {
+            "1": {
+                "action": "Ignore the vulnerability, allowing the controls to become obsolete.",
+				"control": ["c3", "c4"]
+            },
+            "2": {
+                "action": "Patch the control immediately, which will require one day of downtime.",
+                "downtime": 1
+            },
+            "3": {
+                "action": "Patch the control gradually, which will avoid downtime. Control remains operational but will not be fully effective during the patching period.",
+                "control": ["c3", "c4", "c5"]
+            }
+        }
+    }
+	}
+});

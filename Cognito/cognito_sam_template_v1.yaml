@@ -1,0 +1,123 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Description: SAM Template for Cognito User Pool and Clients
+
+Resources:
+  ApiUserPool:
+    Type: AWS::Cognito::UserPool
+    Properties:
+      UserPoolName: api_userpool
+      Policies:
+        PasswordPolicy:
+          MinimumLength: 8
+          RequireUppercase: false
+          RequireLowercase: false
+          RequireNumbers: false
+          RequireSymbols: false
+          TemporaryPasswordValidityDays: 7
+      AutoVerifiedAttributes:
+        - email
+      AliasAttributes:
+        - email
+      UsernameConfiguration: 
+        CaseSensitive: false
+      AdminCreateUserConfig:
+        AllowAdminCreateUserOnly: false
+        UnusedAccountValidityDays: 7
+      MfaConfiguration: "OFF"
+      EmailConfiguration:
+        EmailSendingAccount: COGNITO_DEFAULT
+
+  ApiUserPoolDomain:
+    Type: AWS::Cognito::UserPoolDomain
+    Properties:
+      Domain: api-client
+      UserPoolId: !Ref ApiUserPool
+
+  ApiUserPoolResourceServer:
+    Type: AWS::Cognito::UserPoolResourceServer
+    Properties:
+      Identifier: https://api_userpool_resource_server.com
+      Name: api_userpool_resource_server
+      UserPoolId: !Ref ApiUserPool
+      Scopes: 
+        - ScopeName: Read
+          ScopeDescription: For Players APIs
+        - ScopeName: Write
+          ScopeDescription: For Admin APIs
+
+  AdminUserPoolClient:
+    Type: AWS::Cognito::UserPoolClient
+    Properties:
+      ClientName: admin
+      UserPoolId: !Ref ApiUserPool
+      GenerateSecret: true
+      RefreshTokenValidity: 30
+      AccessTokenValidity: 60
+      IdTokenValidity: 60
+      TokenValidityUnits: 
+        AccessToken: minutes
+        IdToken: minutes
+        RefreshToken: days
+      ExplicitAuthFlows:
+        - ALLOW_REFRESH_TOKEN_AUTH
+        - ALLOW_USER_SRP_AUTH
+      SupportedIdentityProviders: 
+        - COGNITO
+      CallbackURLs: 
+        - http://localhost:5000/callback
+      AllowedOAuthFlows: 
+        - code
+      AllowedOAuthScopes:
+        - aws.cognito.signin.user.admin
+        - email
+        - https://api_userpool_resource_server.com/Write
+        - openid
+        - phone
+      AllowedOAuthFlowsUserPoolClient: true
+      PreventUserExistenceErrors: ENABLED
+      EnableTokenRevocation: true
+
+  ApiUserPoolClient:
+    Type: AWS::Cognito::UserPoolClient
+    Properties:
+      ClientName: nornmal_user_client
+      UserPoolId: !Ref ApiUserPool
+      GenerateSecret: true
+      RefreshTokenValidity: 30
+      AccessTokenValidity: 60
+      IdTokenValidity: 60
+      TokenValidityUnits: 
+        AccessToken: minutes
+        IdToken: minutes
+        RefreshToken: days
+      ExplicitAuthFlows:
+        - ALLOW_REFRESH_TOKEN_AUTH
+        - ALLOW_USER_PASSWORD_AUTH
+        - ALLOW_USER_SRP_AUTH
+      SupportedIdentityProviders: 
+        - COGNITO
+      CallbackURLs: 
+        - http://localhost:3000/callback
+      AllowedOAuthFlows: 
+        - code
+      AllowedOAuthScopes:
+        - aws.cognito.signin.user.admin
+        - email
+        - https://api_userpool_resource_server.com/Read
+        - openid
+        - profile
+      AllowedOAuthFlowsUserPoolClient: true
+      PreventUserExistenceErrors: ENABLED
+      EnableTokenRevocation: true
+
+Outputs:
+  UserPoolId:
+    Description: ID of the User Pool
+    Value: !Ref ApiUserPool
+  AdminClientId:
+    Description: ID of the Admin User Pool Client
+    Value: !Ref AdminUserPoolClient
+  ApiClientId:
+    Description: ID of the API User Pool Client
+    Value: !Ref ApiUserPoolClient

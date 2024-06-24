@@ -1,0 +1,42 @@
+db.specialProjects.insertOne({
+    projects: {
+        task1: {
+            name: 'Implement https',
+            controls: ['Encryption solutions for all the communication'],
+            effectiveness: { t2: '10%', t13: '10%', },
+            cost: 500
+        },
+        task2: {
+            name: 'Setup the VPN for remote login',
+            controls: ['Encryption solutions for all the communication'],
+            effectiveness: { t13: '20%' },
+            cost: 200
+        },
+        task3: {
+            name: 'Setup Monitoring Systems',
+            controls: [
+                'Authentication and Authorization Failure Monitor System',
+                'Monitoring solution for systems against unauthorized access'
+            ],
+            effectiveness: { t7: '10%', t10: '20%', t20: '20%' },
+            cost: 1000
+        },
+		task4: {
+            name: 'Setup PKI server',
+            controls: [
+                'Authentication and Authorization Failure Monitor System',
+                'Encryption tools for Data encryption'
+            ],
+            effectiveness: { t2: '10%', t12: '10%', t13: '10%' },
+            cost: 500
+        },
+		task5: {
+            name: 'Conduct security Awareness training',
+            controls: [
+                'Email Security and safe internet Browsing and other security training'
+            ],
+            effectiveness: { t1: '10%', t3: '10%', t15: '10%' },
+            cost: 500
+        }
+    }
+});

@@ -1,0 +1,79 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Parameters:
+  LambdaRegion:
+    Type: String
+    Default: us-east-1
+    Description: AWS Region where the Lambda functions are deployed.
+
+  LambdaAccountId:
+    Type: String
+    Default: 111111111111111
+    Description: AWS Account ID that owns the Lambda functions.
+
+
+Resources:
+  WebSocketApi:
+    Type: AWS::ApiGatewayV2::Api
+    Properties:
+      Name: gameWebSocketApis
+      ProtocolType: WEBSOCKET
+      RouteSelectionExpression: $request.body.action
+
+  # Routes
+  ConnectRoute:
+    Type: AWS::ApiGatewayV2::Route
+    Properties:
+      ApiId: !Ref WebSocketApi
+      RouteKey: $connect
+      AuthorizationType: NONE
+      Target: !Join ['', [integrations, '/', !Ref ConnectIntegration]]
+
+  DisconnectRoute:
+    Type: AWS::ApiGatewayV2::Route
+    Properties:
+      ApiId: !Ref WebSocketApi
+      RouteKey: $disconnect
+      AuthorizationType: NONE
+      Target: !Join ['', [integrations, '/', !Ref DisconnectIntegration]]
+
+  DefaultRoute:
+    Type: AWS::ApiGatewayV2::Route
+    Properties:
+      ApiId: !Ref WebSocketApi
+      RouteKey: $default
+      AuthorizationType: NONE
+      RouteResponseSelectionExpression: $default
+      Target: !Join ['', [integrations, '/', !Ref DefaultIntegration]]
+
+  # Integrations
+  ConnectIntegration:
+    Type: AWS::ApiGatewayV2::Integration
+    Properties:
+      ApiId: !Ref WebSocketApi
+      IntegrationType: AWS_PROXY
+      IntegrationUri: !Sub arn:aws:apigateway:${LambdaRegion}:lambda:path/2015-03-31/functions/arn:aws:lambda:${LambdaRegion}:${LambdaAccountId}:function:connect/invocations
+      IntegrationMethod: POST
+      TimeoutInMillis: 29000
+
+  DisconnectIntegration:
+    Type: AWS::ApiGatewayV2::Integration
+    Properties:
+      ApiId: !Ref WebSocketApi
+      IntegrationType: AWS_PROXY
+      IntegrationUri: !Sub arn:aws:apigateway:${LambdaRegion}:lambda:path/2015-03-31/functions/arn:aws:lambda:${LambdaRegion}:${LambdaAccountId}:function:disconnect/invocations
+      IntegrationMethod: POST
+      TimeoutInMillis: 29000
+
+  DefaultIntegration:
+    Type: AWS::ApiGatewayV2::Integration
+    Properties:
+      ApiId: !Ref WebSocketApi
+      IntegrationType: AWS_PROXY
+      IntegrationUri: !Sub arn:aws:apigateway:${LambdaRegion}:lambda:path/2015-03-31/functions/arn:aws:lambda:${LambdaRegion}:${LambdaAccountId}:function:defaultResponse/invocations
+      IntegrationMethod: POST
+      TimeoutInMillis: 29000
+
+Outputs:
+  WebSocketApiUrl:
+    Description: "WebSocket URL"
+    Value: !Sub "wss://${WebSocketApi}.execute-api.${AWS::Region}.amazonaws.com/${Stage}"

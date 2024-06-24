@@ -1,0 +1,16 @@
+db.threats.insertOne({
+    threats: {
+      t10: { name: 'CryptoJacking Attack', downtime: 1 },
+      t11: { name: 'DDos Attack', downtime: 2 },
+      t12: { name: 'Insider Threat', downtime: 1 },
+      t7: { name: 'Masquerade Attack', downtime: 2 },
+      t8: { name: 'SQLi Attack', downtime: 1 },
+      t9: { name: 'XSS Attack', downtime: 1 },
+      t1: { name: 'Malware', downtime: 2 },
+      t2: { name: 'Drive-by Compromise', downtime: 1 },
+      t3: { name: 'Phishing', downtime: 1 },
+      t4: { name: 'Employee errors/unintentional', downtime: 1 },
+      t5: { name: 'Supply chain Attack', downtime: 2 },
+      t6: { name: 'Password Attack', downtime: 1 }
+    }
+  });
