@@ -1,0 +1,4 @@
+aiohttp
+websockets
+aiofiles
+boto3
