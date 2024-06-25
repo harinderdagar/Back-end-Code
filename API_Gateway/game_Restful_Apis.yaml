@@ -939,7 +939,7 @@ components:
       x-amazon-apigateway-authtype: "cognito_user_pools"
       x-amazon-apigateway-authorizer:
         providerARNs:
-        - "arn:aws:cognito-idp:us-east-1:569523707262:userpool/us-east-1_kzKpqNzPe"
+        - "arn:aws:cognito-idp:us-east-1:XXXXXXXXXXXXX:userpool/us-east-1_kzsdsdsEs"
         type: "cognito_user_pools"
 x-amazon-apigateway-gateway-responses:
   DEFAULT_5XX:
